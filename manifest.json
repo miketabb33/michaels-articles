@@ -1,6 +1,7 @@
 [
   {
     "title": "OAuth",
-    "path": "oauth.md"
+    "path": "oauth.md",
+    "slug": "oauth"
   }
 ]
