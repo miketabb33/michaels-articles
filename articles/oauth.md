@@ -1,96 +1,107 @@
-Notes from Aaron Parecki’s “The Nuts and Bolts of OAuth 2.0” Udemy’s course https://www.udemy.com/course/oauth-2-simplified/
+# Notes from Aaron Parecki’s “The Nuts and Bolts of OAuth 2.0” Udemy’s course
 
-Section 1: Welcome
-OAuth - is about accessing APIs, like a hotel room key
-Open ID - is about providing user identity, an extension of OAuth
+[Link](https://www.udemy.com/course/oauth-2-simplified/)
+
+## Section 1: Welcome
+- OAuth - is about accessing APIs, like a hotel room key
+- Open ID - is about providing user identity, an extension of OAuth
+
 OAuth lives in its own server
-Section 2: API Security Concepts
-OAuth Roles
-User (Resource Owner)
-Device (User Agent)
-Application (Client)
-Authorization Server
-API (Resource Server)
-Application Types
-Confidential Clients: Has Credentials (Client secrets, private key JWT, mTLS, etc)
-Like a 1st party API
-Source code is not viewable.
-Public Clients: No Credentials
-Like an SPA or mobile app.
-There is no way to ship a secret to the client that the user controls, and it stays a secret. The source code can be viewed.
-The authorization server can’t be sure if requests are genuine or being made by someone mimicking the client.
-This is true with mobile app because the binary files can be inspected.
-User Consent
-A critical part of 3rd party auth flows because
-It ensures that the user is in front of the keyboard.
-Typically, a page from the authorization server that provides the token.
 
-How OAuth Sends Data
-Back Channel
-Normal/Secure way
-Client to server HTTPS connection
-It’s like hand-delivering a package, you see the recipients.
-Certificate validation
-Encryption
-The response can be trusted because you know where it came from.
-Back Channel does not mean back end. A JavaScript app can use fetch or AJAX and that would be considered Back Channel because the JavaScript is handling the HTTP request directly.
-Front Channel
-Using the address bar to move data between 2 systems.
-It’s like using a package delivery service.
-There’s no direct link between the application and OAuth server.
-Was the data intercepted?
-From the sender’s perspective: did the data get to the intended recipient?
-From the receiver’s prospective: did the data come from a legitimate source?
-Channel Usage
-The end goal is for the application to get an authentication token from the authentication server.
-The most secure way is the back channel.
-However, when we want the user to give consent to provide an access token, we need to use the Front Channel
-Implicit Flow
-Uses Front Channel for both the application request and authentication server response.
-The request the app makes to the auth server (typically in the query string of a URL), with info like:
-Who the app is
-What it’s trying to do
-Requested scopes
-None of this info is particularly sensitive.
-The authentication server sends the access token back in the redirect, which is where the security vulnerability comes in.
-This is not secure.
-Application Identity
-Client ID: The application's OAuth identifier.
-Client Secret: The application's password.
-Authorization Code Flow
-Similar to Implicit flow, expect, the access token is delivered in the back channel.
-The authorization server does not send the access token in the redirect url, instead, it sends a 1 time use Authorization Code with a short expiration time.
-Next, the application verifies the Authorization Code with the authentication server through the back channel, by using the Client Secret. In exchange, the authorization server sends the access token to the application.
-However, mobile and SPA apps can’t be deployed with a Client Secret…  This is where PKCE comes in. (Proof Key for Code Exchange).
-Basically, The authentication server makes a unique secret for each request, to be used when the application redeems the Authorization Code.
-PKCE alone does not prevent someone from imitating a client app, all the information is public.
-The redirect URI is really the only thing that can be used to verify the identity of the application. However, this is not 100% because app there is no global registration for custom URL schemes, duplicates are possible.
-When using PKCE, it’s important to register approved application URL’s in the authentication server and confirming with the Front Channel’s redirect URL. Don't redirect if the redirect URL is not registered.
-The bottom line is that there really is no great solution for mobile and SPA, client secrets are the best way to verify Authorization Codes.
-PCKE protects against an authorization code injection attack.
+## Section 2: API Security Concepts
 
+### OAuth Roles
+1. User (Resource Owner)
+2. Device (User Agent)
+3. Application (Client)
+4. Authorization Server
+5. API (Resource Server)
 
+### Application Types
+1. Confidential Clients: Has Credentials (Client secrets, private key JWT, mTLS, etc)
+    1. Like a 1st party API
+    2. Source code is not viewable.
+2. Public Clients: No Credentials
+    1. Like an SPA or mobile app.
+    2. There is no way to ship a secret to the client that the user controls, and it stays a secret. The source code can be viewed.
+    3. The authorization server can’t be sure if requests are genuine or being made by someone mimicking the client.
+    4. This is true with mobile app because the binary files can be inspected.
 
+### User Consent
+1. A critical part of 3rd party auth flows because
+2. It ensures that the user is in front of the keyboard.
+3. Typically, a page from the authorization server that provides the token.
 
-Section 3-6: Server Side, Native, and SPA’s
-Server Side
-Server Side apps are confidential clients and can use client secrets
+### How OAuth Sends Data
+1. Back Channel
+    1. Normal/Secure way
+    2. Client to server HTTPS connection
+    3. It’s like hand-delivering a package, you see the recipients.
+        1. Certificate validation
+        2. Encryption
+        3. The response can be trusted because you know where it came from.
+    4. Back Channel does not mean back end. A JavaScript app can use fetch or AJAX and that would be considered Back Channel because the JavaScript is handling the HTTP request directly.
+
+2. Front Channel
+    1. Using the address bar to move data between 2 systems.
+    2. It’s like using a package delivery service.
+        1. There’s no direct link between the application and OAuth server.
+        2. Was the data intercepted?
+        3. From the sender’s perspective: did the data get to the intended recipient?
+        4. From the receiver’s prospective: did the data come from a legitimate source?
+
+3. Channel Usage
+    1. The end goal is for the application to get an authentication token from the authentication server.
+    2. The most secure way is the back channel.
+    3. However, when we want the user to give consent to provide an access token, we need to use the Front Channel
+
+4. Implicit Flow
+    1. Uses Front Channel for both the application request and authentication server response.
+        1. The request the app makes to the auth server (typically in the query string of a URL), with info like:
+            1. Who the app is
+            2. What it’s trying to do
+            3. Requested scopes
+            4. None of this info is particularly sensitive.
+        2. The authentication server sends the access token back in the redirect, which is where the security vulnerability comes in.
+    2. This is not secure.
+
+### Application Identity
+1. Client ID: The application's OAuth identifier.
+2. Client Secret: The application's password.
+3. Authorization Code Flow
+    1. Similar to Implicit flow, expect, the access token is delivered in the back channel.
+
+    2. The authorization server does not send the access token in the redirect url, instead, it sends a 1 time use Authorization Code with a short expiration time.
+
+    3. Next, the application verifies the Authorization Code with the authentication server through the back channel, by using the Client Secret. In exchange, the authorization server sends the access token to the application.
+
+    4. However, mobile and SPA apps can’t be deployed with a Client Secret…  This is where PKCE comes in. (Proof Key for Code Exchange).
+        1. Basically, The authentication server makes a unique secret for each request, to be used when the application redeems the Authorization Code.
+        2. PKCE alone does not prevent someone from imitating a client app, all the information is public.
+        3. The redirect URI is really the only thing that can be used to verify the identity of the application. However, this is not 100% because app there is no global registration for custom URL schemes, duplicates are possible.
+        4. When using PKCE, it’s important to register approved application URL’s in the authentication server and confirming with the Front Channel’s redirect URL. Don't redirect if the redirect URL is not registered.
+        5. The bottom line is that there really is no great solution for mobile and SPA, client secrets are the best way to verify Authorization Codes.
+        6. PCKE protects against an authorization code injection attack.
+
+## Section 3-6: Server Side, Native, and SPA’s
+### Server Side
+1. Server Side apps are confidential clients and can use client secrets
 This basic idea of this flow can be used both mobile and JavaScript apps.
 
-Native
-Native are public client and should use the PKCE extension.
+### Native
+2. Native are public client and should use the PKCE extension.
 
-SPA
-JavaScript app’s can securely obtain the access token using the PKCE extension.
-Storing the access token is not safe.
-Any scripts run in the browser can access the same storage locations as the code:
-Code runtime scripts (hot linking)
-Scripts the users install on their browser.
-The recommend approach for JavaScript apps is to deny it access to the access token.
-Use a dynamic backend server which serves the client code and acts as a proxy for all API calls.
-Use the front channel to get the authorization code.
-The browser sends the authorization code to a dynamic backend server, which then interacts with the authorization server to obtains the access token.
-The browser uses an HTTP only session cookie that maps to the access token in the proxy backend.
+### SPA
+1. JavaScript app’s can securely obtain the access token using the PKCE extension.
+2. Storing the access token is not safe.
+3. Any scripts run in the browser can access the same storage locations as the code:
+    1. Code runtime scripts (hot linking)
+    2. Scripts the users install on their browser.
+4. The recommend approach for JavaScript apps is to deny it access to the access token.
+    1. Use a dynamic backend server which serves the client code and acts as a proxy for all API calls.
+    2. Use the front channel to get the authorization code.
+    3. The browser sends the authorization code to a dynamic backend server, which then interacts with the authorization server to obtains the access token.
+    4. The browser uses an HTTP only session cookie that maps to the access token in the proxy backend.
 
 Section 7: Internet of Things
 IoT don’t always have keyboards, and when they do, it’s typically not ideal for the user.
