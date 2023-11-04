@@ -3,10 +3,10 @@
 [Link](https://www.udemy.com/course/oauth-2-simplified/)
 
 ## Section 1: Welcome
-- OAuth - is about accessing APIs, like a hotel room key
-- Open ID - is about providing user identity, an extension of OAuth
+- OAuth - Its main responsibility is to provide a token used for accessing APIs. Think of this hotel room key scenario, the key gives access to your room, pool, and business center. However, it does not give access to the conference room or offices, additional privileges are required.
+- Open ID - Its main responsibility is to provide the users identity, an extension of OAuth.
 
-OAuth lives in its own server
+The OAuth and Open ID services typically live in their own server called the Authorization Server, separate from Resource Servers.
 
 ## Section 2: API Security Concepts
 
@@ -18,70 +18,79 @@ OAuth lives in its own server
 5. API (Resource Server)
 
 ### Application Types
-1. Confidential Clients: Has Credentials (Client secrets, private key JWT, mTLS, etc)
-    1. Like a 1st party API
-    2. Source code is not viewable.
-2. Public Clients: No Credentials
-    1. Like an SPA or mobile app.
-    2. There is no way to ship a secret to the client that the user controls, and it stays a secret. The source code can be viewed.
-    3. The authorization server can’t be sure if requests are genuine or being made by someone mimicking the client.
-    4. This is true with mobile app because the binary files can be inspected.
+#### Confidential Clients: Have Credentials
+
+Think of a 1st party API or similar. The main quality of a confidential client is that the source code is not viewable.
+
+For example: Client secrets, private key JWT, mTLS, etc
+
+#### Public Clients: No Credentials
+Think of an SPA or mobile app.
+
+There is no way to ship a secret to the client that the user controls, and it stays a secret. The source code can be viewed.
+
+The authorization server can’t be sure if requests are genuine or being made by someone mimicking the client.
+
+This is true with mobile app because the binary files can be inspected.
 
 ### User Consent
-1. A critical part of 3rd party auth flows because
-2. It ensures that the user is in front of the keyboard.
-3. Typically, a page from the authorization server that provides the token.
+User consent is a critical part of a 3rd party authorization flow because it ensures that the user is in front of the keyboard explicitly consenting to access.
+
+Internal authorization and user consent typically occurs on a page that lives in the authorization server, which subsequently provides an access token.
+
+For internal authorization, think of Googles sign in page.
+
+For 3rd party user consent, think of sign into "some application" with Facebook.
 
 ### How OAuth Sends Data
-1. Back Channel
-    1. Normal/Secure way
-    2. Client to server HTTPS connection
-    3. It’s like hand-delivering a package, you see the recipients.
-        1. Certificate validation
-        2. Encryption
-        3. The response can be trusted because you know where it came from.
-    4. Back Channel does not mean back end. A JavaScript app can use fetch or AJAX and that would be considered Back Channel because the JavaScript is handling the HTTP request directly.
+#### Back Channel
+1. Normal/Secure way
+2. Client to server HTTPS connection
+3. It’s like hand-delivering a package, you see the recipients.
+    1. Certificate validation
+    2. Encryption
+    3. The response can be trusted because you know where it came from.
+4. Back Channel does not mean back end. A JavaScript app can use fetch or AJAX and that would be considered Back Channel because the JavaScript is handling the HTTP request directly.
 
-2. Front Channel
-    1. Using the address bar to move data between 2 systems.
-    2. It’s like using a package delivery service.
-        1. There’s no direct link between the application and OAuth server.
-        2. Was the data intercepted?
-        3. From the sender’s perspective: did the data get to the intended recipient?
-        4. From the receiver’s prospective: did the data come from a legitimate source?
+#### Front Channel
+1. Using the address bar to move data between 2 systems.
+2. It’s like using a package delivery service.
+    1. There’s no direct link between the application and OAuth server.
+    2. Was the data intercepted?
+    3. From the sender’s perspective: did the data get to the intended recipient?
+    4. From the receiver’s prospective: did the data come from a legitimate source?
 
-3. Channel Usage
-    1. The end goal is for the application to get an authentication token from the authentication server.
-    2. The most secure way is the back channel.
-    3. However, when we want the user to give consent to provide an access token, we need to use the Front Channel
+#### Channel Usage
+1. The end goal is for the application to get an authentication token from the authentication server.
+2. The most secure way is the back channel.
+3. However, when we want the user to give consent to provide an access token, we need to use the Front Channel
 
-4. Implicit Flow
-    1. Uses Front Channel for both the application request and authentication server response.
-        1. The request the app makes to the auth server (typically in the query string of a URL), with info like:
-            1. Who the app is
-            2. What it’s trying to do
-            3. Requested scopes
-            4. None of this info is particularly sensitive.
-        2. The authentication server sends the access token back in the redirect, which is where the security vulnerability comes in.
-    2. This is not secure.
+#### Implicit Flow
+1. Uses Front Channel for both the application request and authentication server response.
+    1. The request the app makes to the auth server (typically in the query string of a URL), with info like:
+        1. Who the app is
+        2. What it’s trying to do
+        3. Requested scopes
+        4. None of this info is particularly sensitive.
+    2. The authentication server sends the access token back in the redirect, which is where the security vulnerability comes in.
+2. This is not secure.
 
 ### Application Identity
-1. Client ID: The application's OAuth identifier.
-2. Client Secret: The application's password.
-3. Authorization Code Flow
-    1. Similar to Implicit flow, expect, the access token is delivered in the back channel.
+Client ID: The application's OAuth identifier.
 
-    2. The authorization server does not send the access token in the redirect url, instead, it sends a 1 time use Authorization Code with a short expiration time.
+Client Secret: The application's password.
 
-    3. Next, the application verifies the Authorization Code with the authentication server through the back channel, by using the Client Secret. In exchange, the authorization server sends the access token to the application.
-
-    4. However, mobile and SPA apps can’t be deployed with a Client Secret…  This is where PKCE comes in. (Proof Key for Code Exchange).
-        1. Basically, The authentication server makes a unique secret for each request, to be used when the application redeems the Authorization Code.
-        2. PKCE alone does not prevent someone from imitating a client app, all the information is public.
-        3. The redirect URI is really the only thing that can be used to verify the identity of the application. However, this is not 100% because app there is no global registration for custom URL schemes, duplicates are possible.
-        4. When using PKCE, it’s important to register approved application URL’s in the authentication server and confirming with the Front Channel’s redirect URL. Don't redirect if the redirect URL is not registered.
-        5. The bottom line is that there really is no great solution for mobile and SPA, client secrets are the best way to verify Authorization Codes.
-        6. PCKE protects against an authorization code injection attack.
+#### Authorization Code Flow
+1. Similar to Implicit flow, expect, the access token is delivered in the back channel.
+2. The authorization server does not send the access token in the redirect url, instead, it sends a 1 time use Authorization Code with a short expiration time.
+3. Next, the application verifies the Authorization Code with the authentication server through the back channel, by using the Client Secret. In exchange, the authorization server sends the access token to the application.
+4. However, mobile and SPA apps can’t be deployed with a Client Secret…  This is where PKCE comes in. (Proof Key for Code Exchange).
+    1. Basically, The authentication server makes a unique secret for each request, to be used when the application redeems the Authorization Code.
+    2. PKCE alone does not prevent someone from imitating a client app, all the information is public.
+    3. The redirect URI is really the only thing that can be used to verify the identity of the application. However, this is not 100% because app there is no global registration for custom URL schemes, duplicates are possible.
+    4. When using PKCE, it’s important to register approved application URL’s in the authentication server and confirming with the Front Channel’s redirect URL. Don't redirect if the redirect URL is not registered.
+    5. The bottom line is that there really is no great solution for mobile and SPA, client secrets are the best way to verify Authorization Codes.
+    6. PCKE protects against an authorization code injection attack.
 
 ## Section 3-6: Server Side, Native, and SPA’s
 ### Server Side
@@ -185,7 +194,6 @@ This basic idea of this flow can be used both mobile and JavaScript apps.
     4. Further claims can be validated
         1. The amr, how the user logged in.
         2. The auth time, when was the last time the user actually signed in.
-
 3. The only time we do not need to validate the ID Token is at the time it comes from a trusted source, like in the back channel during the authorization code flow.
     1. Storing an ID Token in the browser, like a cookie, requires that the ID Token be validated before being used.
 
@@ -368,19 +376,16 @@ Once scopes are defined, document them so that developers know what the availabl
 - Bare minimum scopes:
     - Read
     - Write
-
 - Restricting access to sensitive information
     - Personal Information
     - Account details
     - Etc
-
 - Segment out unrelated parts of a large API, Google Example:
     - Mail API
     - Drive API
     - YouTube API
     - Etc
     - There’s not just 1 global write scope.
-
 - Add scope for APIs that can charge the user
     - Charging a credit card
     - Billable resources
