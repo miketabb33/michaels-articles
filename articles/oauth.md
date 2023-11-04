@@ -3,10 +3,15 @@
 [Link](https://www.udemy.com/course/oauth-2-simplified/)
 
 ## Section 1: Welcome
-- OAuth - Its main responsibility is to provide a token used for accessing APIs. Think of this hotel room key scenario, the key gives access to your room, pool, and business center. However, it does not give access to the conference room or offices, additional privileges are required.
-- Open ID - Its main responsibility is to provide the users identity, an extension of OAuth.
 
-The OAuth and Open ID services typically live in their own server called the Authorization Server, separate from Resource Servers.
+OAuth and Open ID services typically live in their own server called the Authorization Server, separate from Resource Servers.
+
+#### OAuth
+
+Its main responsibility is to provide a token used for accessing APIs. Think of this hotel room key scenario, the key gives access to your room, pool, and business center. However, it does not give access to the conference room or offices, additional privileges are required.
+
+#### Open ID
+Its main responsibility is to provide the users identity, an extension of OAuth.
 
 ## Section 2: API Security Concepts
 
