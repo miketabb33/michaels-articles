@@ -8,14 +8,14 @@ OAuth and Open ID services typically live in their own server called the Authori
 
 #### OAuth
 
-Its main responsibility is to provide a token used for accessing APIs. Think of this hotel room key scenario, the key gives access to your room, pool, and business center. However, it does not give access to the conference room or offices, additional privileges are required.
+The main responsibility of OAuth is to provide a token used for accessing APIs. Think of this hotel room key scenario, the key gives access to your room, pool, and business center. However, it does not give access to the conference room or offices, additional privileges are required.
 
 #### Open ID
-Its main responsibility is to provide the users identity, an extension of OAuth.
+The main responsibility of Open ID is to provide the users identity, an extension of OAuth.
 
 ## Section 2: API Security Concepts
 
-### OAuth Roles
+### OAuth Roles (Terms)
 1. User (Resource Owner)
 2. Device (User Agent)
 3. Application (Client)
@@ -27,58 +27,55 @@ Its main responsibility is to provide the users identity, an extension of OAuth.
 
 Think of a 1st party API or similar. The main quality of a confidential client is that the source code is not viewable.
 
-For example: Client secrets, private key JWT, mTLS, etc
+Confidential credential examples:
+- Client secrets
+- Private Key JWT
+- mTLS
 
 #### Public Clients: No Credentials
-Think of an SPA or mobile app.
+Think of an SPA or mobile app. There is no way to ship a secret to the client that the user controls, and it stays a secret. The source code can be viewed.
 
-There is no way to ship a secret to the client that the user controls, and it stays a secret. The source code can be viewed.
-
-The authorization server can’t be sure if requests are genuine or being made by someone mimicking the client.
-
-This is true with mobile app because the binary files can be inspected.
+The authorization server can’t be sure if requests are genuine or being made by someone mimicking the client. This is true with mobile app because the binary files can be inspected.
 
 ### User Consent
 User consent is a critical part of a 3rd party authorization flow because it ensures that the user is in front of the keyboard explicitly consenting to access.
 
 Internal authorization and user consent typically occurs on a page that lives in the authorization server, which subsequently provides an access token.
 
-For internal authorization, think of Googles sign in page.
-
-For 3rd party user consent, think of sign into "some application" with Facebook.
+- For internal authorization, think of Googles sign in page.
+- For 3rd party user consent, think of sign into "some application" with Facebook.
 
 ### How OAuth Sends Data
 #### Back Channel
-1. Normal/Secure way
-2. Client to server HTTPS connection
-3. It’s like hand-delivering a package, you see the recipients.
-    1. Certificate validation
-    2. Encryption
-    3. The response can be trusted because you know where it came from.
-4. Back Channel does not mean back end. A JavaScript app can use fetch or AJAX and that would be considered Back Channel because the JavaScript is handling the HTTP request directly.
+The secure way of delivering an access token. It uses a client to server HTTPS connection and is similar to hand-delivering a package, you see the recipients.
+
+1. Certificate validation
+2. Encryption
+3. The response can be trusted because you know where it came from.
+
+The Back Channel does not mean back end. A JavaScript app can use fetch or AJAX and that would be considered Back Channel because the JavaScript is handling the HTTP request directly.
 
 #### Front Channel
-1. Using the address bar to move data between 2 systems.
-2. It’s like using a package delivery service.
-    1. There’s no direct link between the application and OAuth server.
-    2. Was the data intercepted?
-    3. From the sender’s perspective: did the data get to the intended recipient?
-    4. From the receiver’s prospective: did the data come from a legitimate source?
+Uses the address bar to move data between 2 systems. It’s similar to using a package delivery service to deliver a package.
+
+1. There’s no direct link between the Application and the Authorization Server.
+2. Was the data intercepted?
+3. From the sender’s perspective: did the data get to the intended recipient?
+4. From the receiver’s prospective: did the data come from a legitimate source?
 
 #### Channel Usage
-1. The end goal is for the application to get an authentication token from the authentication server.
-2. The most secure way is the back channel.
-3. However, when we want the user to give consent to provide an access token, we need to use the Front Channel
+The end goal is for the Application to get an access token from the Authentication Server and the most secure way is the back channel. However, when we want the user to give consent to provide an access token, we need to use the Front Channel.
 
 #### Implicit Flow
-1. Uses Front Channel for both the application request and authentication server response.
-    1. The request the app makes to the auth server (typically in the query string of a URL), with info like:
-        1. Who the app is
-        2. What it’s trying to do
-        3. Requested scopes
-        4. None of this info is particularly sensitive.
-    2. The authentication server sends the access token back in the redirect, which is where the security vulnerability comes in.
-2. This is not secure.
+Uses the Front Channel for both the Applications authentication request and the Authentication Servers response.
+
+First, the Application makes a request to the Authorization Server via the address bar. To Application includes information in the query string, none of which is particularly sensitive or secret, like:
+1. Who the app is (Client Id)
+2. What it’s trying to do
+3. Requested scopes
+
+Then, after user sign in, the Authentication Server redirects back the the Application via the address bar. The redirect url will provide the access token as a query string, which is where the security vulnerability comes in. This flow is not secure because the Authorization Server is unable to reliably know for sure that they are providing an access token to a trusted Application.
+
 
 ### Application Identity
 Client ID: The application's OAuth identifier.
@@ -86,16 +83,14 @@ Client ID: The application's OAuth identifier.
 Client Secret: The application's password.
 
 #### Authorization Code Flow
-1. Similar to Implicit flow, expect, the access token is delivered in the back channel.
-2. The authorization server does not send the access token in the redirect url, instead, it sends a 1 time use Authorization Code with a short expiration time.
-3. Next, the application verifies the Authorization Code with the authentication server through the back channel, by using the Client Secret. In exchange, the authorization server sends the access token to the application.
-4. However, mobile and SPA apps can’t be deployed with a Client Secret…  This is where PKCE comes in. (Proof Key for Code Exchange).
-    1. Basically, The authentication server makes a unique secret for each request, to be used when the application redeems the Authorization Code.
-    2. PKCE alone does not prevent someone from imitating a client app, all the information is public.
-    3. The redirect URI is really the only thing that can be used to verify the identity of the application. However, this is not 100% because app there is no global registration for custom URL schemes, duplicates are possible.
-    4. When using PKCE, it’s important to register approved application URL’s in the authentication server and confirming with the Front Channel’s redirect URL. Don't redirect if the redirect URL is not registered.
-    5. The bottom line is that there really is no great solution for mobile and SPA, client secrets are the best way to verify Authorization Codes.
-    6. PCKE protects against an authorization code injection attack.
+Similar to Implicit flow, expect, the access token is delivered in the back channel. The authorization server does not send the access token in the redirect url, instead, it sends a 1 time use Authorization Code with a short expiration time. Next, the application verifies the Authorization Code with the authentication server through the back channel, by using the Client Secret. In exchange, the authorization server sends the access token to the application. However, mobile and SPA apps can’t be deployed with a Client Secret…  This is where PKCE comes in. (Proof Key for Code Exchange).
+
+1. The Authentication Server makes a unique secret for each request, to be used when the Application redeems the Authorization Code.
+2. PKCE alone does not prevent someone from imitating a client app, all the information is public.
+3. The redirect URI is really the only thing that can be used to verify the identity of the application. However, this is not 100% because app there is no global registration for custom URL schemes, duplicates are possible.
+4. When using PKCE, it’s important to register approved application URL’s in the authentication server and confirming with the Front Channel’s redirect URL. Don't allow the Authorization Server to redirect if the redirect URL is not registered.
+
+The bottom line is that there really is no perfect solution for mobile and SPA, client secrets are the best way to verify Authorization Codes. However, for mobile and SPA's, PCKE is the recommend approach and protects against an authorization code injection attack.
 
 ## Section 3-6: Server Side, Native, and SPA’s
 ### Server Side
