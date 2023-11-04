@@ -1,7 +1,9 @@
 [
   {
-    "title": "OAuth",
     "path": "oauth.md",
-    "slug": "oauth"
+    "slug": "oauth",
+    "title": "Notes from “The Nuts and Bolts of OAuth 2.0”",
+    "description": "Get a high level overview of Aaron Parecki’s Udemy's course: “The Nuts and Bolts of OAuth 2.0”. These notes cover everything from what is OAuth, to different authentication flows, token types, and many more OAuth topics.",
+    "thumbnail": "https://ibb.co/Pw9z4ZZ"
   }
 ]
