@@ -1,7 +1,5 @@
 
-This article is based on Aaron Parecki’s Udemy's course: “The Nuts and Bolts of OAuth 2.0” [Course Link](https://www.udemy.com/course/oauth-2-simplified/).
-
-I Highly recommend this course!
+This article is based on Aaron Parecki’s Udemy's course: “The Nuts and Bolts of OAuth 2.0” [Course Link](https://www.udemy.com/course/oauth-2-simplified/). I highly recommend this course!
 
 ## Section 1: Welcome
 
