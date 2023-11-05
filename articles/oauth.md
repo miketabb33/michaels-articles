@@ -93,27 +93,24 @@ The bottom line is that there really is no perfect solution for mobile and SPA, 
 
 ## Section 3-6: Server Side, Native, and SPA’s
 ### Server Side
-1. Server Side apps are confidential clients and can use client secrets
-This basic idea of this flow can be used both mobile and JavaScript apps.
+Server Side apps are confidential clients and can use client secrets. Server Side authentication can securely authenticate over https.
 
 ### Native
-2. Native are public client and should use the PKCE extension.
+Native Applications are public clients because their binaries can be inspected. They should use the PKCE extension for authentication.
 
 ### SPA
-1. JavaScript app’s can securely obtain the access token using the PKCE extension.
-2. Storing the access token is not safe.
-3. Any scripts run in the browser can access the same storage locations as the code:
-    1. Code runtime scripts (hot linking)
-    2. Scripts the users install on their browser.
-4. The recommend approach for JavaScript apps is to deny it access to the access token.
-    1. Use a dynamic backend server which serves the client code and acts as a proxy for all API calls.
-    2. Use the front channel to get the authorization code.
-    3. The browser sends the authorization code to a dynamic backend server, which then interacts with the authorization server to obtains the access token.
-    4. The browser uses an HTTP only session cookie that maps to the access token in the proxy backend.
+JavaScript app’s can securely obtain the access token using the PKCE extension. In addition, storing the access token with browser storage is not secure.
+Any scripts run in the browser can access the same storage locations as the code:
+1. Code runtime scripts (hot linking)
+2. Scripts the users install on their browser.
+The recommend approach for JavaScript apps is to deny it access to the access token.
+1. Use a dynamic backend server which serves the client code and acts as a proxy for all API calls.
+2. Use the front channel to get the authorization code.
+3. The browser sends the authorization code to a dynamic backend server, which then interacts with the authorization server to obtains the access token.
+4. The browser uses an HTTP only session cookie that maps to the access token in the proxy backend.
 
 ## Section 7: Internet of Things
-1. IoT don’t always have keyboards, and when they do, it’s typically not ideal for the user.
-2. There typically isn't always a browser to use a front channel to have the user login.
+IoT don’t always have keyboards, and when they do, it’s typically not ideal for the user. In addition, there isn't always a browser to use a front channel for user login. Imagine a logging into netflix on a smart TV, a search engine isn't always available.
 
 ### Device Flow
 1. Separates the device that gets the access token from the device that the user is using to login.
@@ -127,18 +124,14 @@ This basic idea of this flow can be used both mobile and JavaScript apps.
 
 ## Section 8: Client Credential Flow
 ### Client Credential Grant
-- Gives a way for the client to get an access token without any user interaction.
-- Machine to machine communication.
-- Exchanging the client credentials for an access token simplifies the APIs, so they only need to worry about validating access tokens.
-- APIs won't need to know anything about client credentials.
+Client Credential Grand provides a way for the client to get an access token without any user interaction. The approach shines in machine to machine communication. Exchanging the client credentials for an access token simplifies the APIs, so they only need to worry about validating access tokens.
 
 ### Steps
-1. Register the application at the OAuth server.
-    1. If asked for an option - go with machine to machine or service account.
-    2. Essentially, we need the client secret.
-2. Post request to the auth server has a grant type of client credentials.
-    1. The details may vary.
-1. The response should return an access token.
+1. Register the application at the OAuth server. If asked for an option - go with machine to machine or service account. This will provide the client secret.
+
+2. Send a post request to the auth server with a grant type of client credentials. The exact details of what should be in post request may vary, depending on the OAuth Server.
+
+3. The response should return an access token.
 
 ## Section 9: Introduction to OpenID Connect
 - The ID token are always JWTs, access tokens have no defined format in the spec.
@@ -195,8 +188,6 @@ This basic idea of this flow can be used both mobile and JavaScript apps.
         2. The auth time, when was the last time the user actually signed in.
 3. The only time we do not need to validate the ID Token is at the time it comes from a trusted source, like in the back channel during the authorization code flow.
     1. Storing an ID Token in the browser, like a cookie, requires that the ID Token be validated before being used.
-
-
 
 ## Section 11: Access Token Types And Their Tradeoffs
 ### Reference Tokens Vs Self-Encoded Tokens
