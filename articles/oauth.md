@@ -1,4 +1,4 @@
-Here are my notes to Aaron Parecki’s Udemy's course: “The Nuts and Bolts of OAuth 2.0” [Course Link](https://www.udemy.com/course/oauth-2-simplified/). I thoroughly enjoyed the course and took these notes to be a helpful reference for OAuth topics. I highly recommend this course!
+Here are my notes to Aaron Parecki’s Udemy's course, “The Nuts and Bolts of OAuth 2.0.” [Course Link](https://www.udemy.com/course/oauth-2-simplified/). I thoroughly enjoyed the course and took these notes to be a helpful reference for OAuth topics. I highly recommend this course!  (Consider adding a description of whats about to be covered)
 
 ## Section 1: Welcome
 
@@ -6,7 +6,7 @@ OAuth and Open ID services typically live in their own server called the Authori
 
 #### OAuth
 
-The main responsibility of OAuth is to provide a token used for accessing APIs. Think of this hotel room key scenario, the key gives access to your room, pool, and business center. However, it does not give access to the conference room or offices, additional privileges are required.
+The main responsibility of OAuth is to provide a token used for accessing APIs. Think of this hotel room key scenario. The key gives access to your room, pool, and business center, however, it does not give access to the conference room or offices. For access to these, additional privileges are required.
 
 #### Open ID
 The main responsibility of Open ID is to provide the users identity, an extension of OAuth.
@@ -23,7 +23,7 @@ The main responsibility of Open ID is to provide the users identity, an extensio
 ### Application Types
 #### Confidential Clients: Have Credentials
 
-Think of a 1st party API or similar. The main quality of a confidential client is that the source code is not viewable.
+Think of a first party API or something similar. The main quality of a confidential client is that the source code is not viewable.
 
 Confidential credential examples:
 - Client secrets
@@ -33,7 +33,7 @@ Confidential credential examples:
 #### Public Clients: No Credentials
 Think of an SPA or mobile app. There is no way to ship a secret to the client that the user controls, and it stays a secret. The source code can be viewed.
 
-The authorization server can’t be sure if requests are genuine or being made by someone mimicking the client. This is true with mobile app because the binary files can be inspected.
+The authorization server cannot be sure if requests are genuine or being made by someone mimicking the client. This is true with mobile app because the binary files can be inspected.
 
 ### User Consent
 User consent is a critical part of a 3rd party authorization flow because it ensures that the user is in front of the keyboard explicitly consenting to access.
@@ -41,7 +41,7 @@ User consent is a critical part of a 3rd party authorization flow because it ens
 Internal authorization and user consent typically occurs on a page that lives in the authorization server, which subsequently provides an access token.
 
 - For internal authorization, think of Googles sign in page.
-- For 3rd party user consent, think of sign into "some application" with Facebook.
+- For 3rd party user consent, think of sign into "some application" with Facebook. (consider numbering?)
 
 ### How OAuth Sends Data
 #### Back Channel
@@ -54,25 +54,25 @@ The secure way of delivering an access token. It uses a client to server HTTPS c
 The Back Channel does not mean back end. A JavaScript app can use fetch or AJAX and that would be considered Back Channel because the JavaScript is handling the HTTP request directly.
 
 #### Front Channel
-Uses the address bar to move data between 2 systems. It’s similar to using a package delivery service to deliver a package.
+Uses the address bar to move data between two systems. It is similar to using a package delivery service to deliver a package.(use a sentence)
 
 1. There’s no direct link between the Application and the Authorization Server.
 2. Was the data intercepted?
-3. From the sender’s perspective: did the data get to the intended recipient?
-4. From the receiver’s prospective: did the data come from a legitimate source?
+3. From the sender’s perspective, did the data get to the intended recipient?
+4. From the receiver’s prospective, did the data come from a legitimate source?
 
 #### Channel Usage
 The end goal is for the Application to get an access token from the Authentication Server and the most secure way is the back channel. However, when we want the user to give consent to provide an access token, we need to use the Front Channel.
 
 #### Implicit Flow
-Uses the Front Channel for both the Applications authentication request and the Authentication Servers response.
+Uses the Front Channel for both the Applications authentication request and the Authentication Servers response. (awkward)
 
 First, the Application makes a request to the Authorization Server via the address bar. To Application includes information in the query string, none of which is particularly sensitive or secret, like:
 1. Who the app is (Client Id)
-2. What it’s trying to do
+2. What it is trying to do
 3. Requested scopes
 
-Then, after user sign in, the Authentication Server redirects back the the Application via the address bar. The redirect url will provide the access token as a query string, which is where the security vulnerability comes in. This flow is not secure because the Authorization Server is unable to reliably know for sure that they are providing an access token to a trusted Application.
+Then, after user sign in, the Authentication Server redirects back the the Application via the address bar. The redirect URL will provide the access token as a query string, which is where the security vulnerability comes in. This flow is not secure because the Authorization Server is unable to reliably know for sure that they are providing an access token to a trusted Application.
 
 
 ### Application Identity
@@ -81,7 +81,7 @@ Client ID: The application's OAuth identifier.
 Client Secret: The application's password.
 
 #### Authorization Code Flow
-Similar to Implicit flow, expect, the access token is delivered in the back channel. The authorization server does not send the access token in the redirect url, instead, it sends a 1 time use Authorization Code with a short expiration time. Next, the application verifies the Authorization Code with the authentication server through the back channel, by using the Client Secret. In exchange, the authorization server sends the access token to the application. However, mobile and SPA apps can’t be deployed with a Client Secret…  This is where PKCE comes in. (Proof Key for Code Exchange).
+Similar to Implicit flow, expect, the access token is delivered in the back channel. The authorization server does not send the access token in the redirect URL, instead, it sends a first time use Authorization Code with a short expiration time. Next, the application verifies the Authorization Code with the authentication server through the back channel, by using the Client Secret. In exchange, the authorization server sends the access token to the application, however, mobile and SPA apps can’t be deployed with a Client Secret. This is where PKCE comes in. (Proof Key for Code Exchange).
 
 1. The Authentication Server makes a unique secret for each request, to be used when the Application redeems the Authorization Code.
 2. PKCE alone does not prevent someone from imitating a client app, all the information is public.
@@ -116,7 +116,7 @@ IoT don’t always have keyboards, and when they do, it’s typically not ideal 
 2. Device says to auth server, someone is trying to log in. The auth server only knows the client ID.
 3. The auth server sends up a temporary code and the device asks the user to go to a URL and enter the code. The URL is typically short because the user will need to type it in by hand.
 4. The URL takes the user to the authentication server, where the user can type in the code and login/authenticate.
-5. Once the user is logged in and authenticated, they see a prompt stating “Another device is trying to access your account, would you like to allow it?” They hit yes.
+5. Once the user is logged in and authenticated, they see a prompt stating “Another device is trying to access your account, would you like to allow it?” They hit yes.(revisit sentence)
 6. During this time, the device requesting an access token is pooling every couple of seconds asking, “Is the user finished logging in yet?”
 7. Once the user logs in, one of these pooled requests will return with the access token.
 8. Complete!
@@ -126,7 +126,7 @@ IoT don’t always have keyboards, and when they do, it’s typically not ideal 
 Client Credential Grand provides a way for the client to get an access token without any user interaction. The approach shines in machine to machine communication. Exchanging the client credentials for an access token simplifies the APIs, so they only need to worry about validating access tokens.
 
 ### Steps
-1. Register the application at the OAuth server. If asked for an option - go with machine to machine or service account. This will provide the client secret.
+1. Register the application at the OAuth server. If asked for an option, go with machine to machine or service account. This will provide the client secret.
 
 2. Send a post request to the auth server with a grant type of client credentials. The exact details of what should be in post request may vary, depending on the OAuth Server.
 
@@ -134,21 +134,21 @@ Client Credential Grand provides a way for the client to get an access token wit
 
 ## Section 9: Introduction to OpenID Connect
 
-Open ID uses the ID tokens to share data about the user. ID tokens are always a JWT Token, which have 3 main parts:
-1. Header: talks about the token, like which signing algorithm was used.
+Open ID uses the ID tokens to share data about the user. ID tokens are always a JWT Token, which have three main parts:
+1. Header: Talks about the token, like which signing algorithm was used.
 2. Payload: Contains the data, like user ID, email, other profile info, etc.
-3. Signature: how the token validated.
+3. Signature: How the token validated.
 
 ### ID Tokens vs Access Tokens
 
-They both can be JWTs and have the same format. However, they are intended to serve 2 very different purposes:
+They both can be JWTs and have the same format, however, they are intended to serve 2 very different purposes.
 
-Access Token: Its what the application uses to make requests to APIs. The access token is meant to be opaque and never unpacked, it should be like a hotel key, not knowing anything about the person using it.
+__Access Token:__ It's what the application uses to make requests to APIs. The access token is meant to be opaque and never unpacked, it should be like a hotel key, not knowing anything about the person using it.
 
-ID Token: Intended to be read by the application, like a passport of the user. It should be unpacked.
+__ID Token:__ Intended to be read by the application, like a passport of the user. It should be unpacked. (bold definitions?)(Beware etc.)
 
 ### Obtaining an ID Token
-Applications typically need both the access token and id token.
+Applications typically need both the access token and ID Token.
 
 When using the Authorization Code Flow:
 1. Add OpenID scope to the request, and you'll get back an ID Token and and Access Token.
@@ -156,7 +156,7 @@ When using the Authorization Code Flow:
 
 Implicit Flow but for just the ID Token:
 1. Specify the response type to be ID Token to return the ID Token, instead of an access token.
-2. Returns an ID token in the redirect URL instead of the authorization code or access token.
+2. Returns an ID Token in the redirect URL instead of the authorization code or access token.
 3. Use the JWT signature to validate the ID Token.
 4. Front channel is not too secure because if anyone is snooping, they will be able to get data like email address, address, or any other data included in the ID Token.
 
@@ -167,7 +167,7 @@ Only using the OpenID scope will return bare minimum data in the ID Token.
 ### Hybrid Open ID Connect Flows
 Combining ID Token and Authorization Code response types. For example, response_type=code+id_token
 
-While it’s okay to combine Authorization code and ID Token, it's bad practice to combine front channel access token with ID Token because of access token leakage. For example, response_type=token+id_token
+While it is okay to combine Authorization code and ID Token, it is bad practice to combine front channel access token with ID Token because of access token leakage. For example, response_type=token+id_token
 
 When using id_token+code, the Authorization Server returns an unverified ID Token in the front channel, but we get the access token later in the flow by exchanging the authorization code in the back channel. Since the ID Token was provided via the front channel, it needs to be verified.
 
@@ -195,10 +195,10 @@ What kind of token data is stored?
 - Last Login Time
 
 ### Reference Token:
-A Long random string of characters that doesn't mean anything, it's a pointer. The Token Data is stored in a db table or something like Redis and the validation happens at the Authentication Server. Reference Tokens shine when the Authentication Server is within the application.
+A Long random string of characters that doesn't mean anything, it is a pointer. The Token Data is stored in a database table or something like Redis and the validation happens at the Authentication Server. Reference Tokens shine when the Authentication Server is within the application.
 
 ### Self-Encoded Token:
-The token string itself contains some kind of data, typically a JWT token. Only the API should inspect the token, the client should only use the token like the hotel key analogy. The validation happens outside the Authentication Server. Self-Encoded tokens are more scalable and shine when the Authentication Server is NOT within the application.
+The token string itself contains some kind of data, typically a JWT Token. Only the API should inspect the token, the client should only use the token like the hotel key analogy. The validation happens outside the Authentication Server. Self-Encoded Tokens are more scalable and shine when the Authentication Server is NOT within the application.
 
 ### Pros and Cons of Reference Tokens
 Pros:
@@ -215,7 +215,7 @@ Cons:
 Pros:
 - The token has all the data required to validate it.
 - Don’t need to be stored.
-- Don’t need to be looked up
+- Don’t need to be looked up.
 - Scalable, because no shared storage is needed.
 
 Cons:
@@ -238,13 +238,13 @@ The data we care about and the claims (ways to validate that the token has not b
 4. aud: intended audience for the token.
 5. sub: ID for whom the token represents, like user ID.
 6. client_id: the client ID.
-7. jti: unique ID for the particular JWT token.
+7. jti: unique ID for the particular JWT Token.
 
 #### Signature
 Used for validating the JWT.
 
 ### Remote Token Introspection
-APIs can use Remote Token Introspection to validate tokens. Its a means to verify the token with the Authorization Server. The Authorization Server may expose an HTTP POST endpoint: "Token Introspection Endpoint". The endpoint most often requires some kind of authentication and will respond with the is-valid status of the token.
+APIs can use Remote Token Introspection to validate tokens. It is a means to verify the token with the Authorization Server. The Authorization Server may expose an HTTP POST endpoint: "Token Introspection Endpoint". The endpoint most often requires some kind of authentication and will respond with the is-valid status of the token.
 
 A negative is that Remote Token Introspection requires network traffic and can cost time and resources.
 
@@ -260,7 +260,7 @@ APIs can use Local Token Validation to validate tokens. This approach is the fas
 A negative is tha Local validation only validates the token in the state that it was in when issued. If the token was invalidated in the Authorization Server before the expiration date, the token itself will not reflect that change. As a result, the longer the token lifetime, the higher the risk of making auth decisions on out of date information.
 
 ### The Best Of Both Worlds: Using An API Gateway
-First line of defense, handles every API request that comes through.
+The first line of defense handles every API request that comes through.
 1. API gateway performs ONLY local validation, which thins out the amount of requests coming through the system by removing attackers request and bad tokens.
 2. As a result, the services behind the gateway only get valid or potentially valid tokens (they could have been invalidated before the expiration).
 3. The services determine whether remote token introspection is required or not.
@@ -275,10 +275,10 @@ While short access tokens can improve security, they also has a negative effect 
 
 In most cases, the more disruptive it is to get an access token, the longer the token lifetime should be. For web applications, refresh tokens are typically not secure and are not used. Access token lifetimes can be longer. For mobile applications, refresh tokens can securely be used and opening the browser is very disruptive. Shorter token lifetimes with a refresh token can be used and refresh tokens should be long enough for the user experience.
 
-Regardless, the authorization server's session lifetime can be much longer than a specific access/refresh tokens lifetime.
+Regardless, the authorization server's session lifetime can be much longer than a specific access/refresh tokens' lifetime.
 
 ### Contextually Choosing Token Lifetimes
-Access token lifetimes can vary based on different properties, like client ID, scope, group, user, etc. A SPA can have longer token lifetimes than its mobile app counterpart. An Admin/staff user may have a shorter token lifetime than other users. While using scopes, an application may not require a new login while viewing a catalog, but can require a login when the user wants to place an order. As a result, the regular token can be long-lived while, for example, the checkout token can be short-lived. Token lifetimes can very base on use.
+Access token lifetimes can vary based on different properties like client ID, scope, group, user, to name a few. A SPA can have longer token lifetimes than its mobile app counterpart. An admin or staff user may have a shorter token lifetime than other users. While using scopes, an application may not require a new login while viewing a catalog, but can require a login when the user wants to place an order. As a result, the regular token can be long-lived while, for example, the checkout token can be short-lived. Token lifetimes can very base on use.
 
 ## Section 14: Handling Revoked Or Invalidated Access Tokens
 ### Reasons Why An Access Token May Become Invalidated
@@ -294,7 +294,7 @@ If the request is rejected due to an invalid access token, the app can try and u
 The client may not know when the token has expired, clients are not supposed to read an access token.
 
 ### The Problem With Local Validation
-It’s the APIs job to make sure it does not respond if an access token has been revoked. If a token becomes invalid due to a reason other than expiration, the JWT will not know about it. Only Remote Token Introspection can the real time status of an access token. Local Validation 100% depends on the data in the JWT to know if a token is valid.
+It’s the API's job to make sure it does not respond if an access token has been revoked. If a token becomes invalid due to a reason other than expiration, the JWT will not know about it. Only Remote Token Introspection can the real time status of an access token. Local Validation 100% depends on the data in the JWT to know if a token is valid. (review use of apostrophes ex: API's)
 
 ### Token Lifetime Considerations
 Tokens with long lifetimes need Remote Token Introspection more often because there is more of a chance that the token has become invalid between issue time and expiration time. Shorter token lifetimes have less of a chance that the token was invalidated between issue time and expiration time, the time is shorter.
@@ -309,7 +309,7 @@ Scopes are a way for an application to request access to limited parts of a user
 ### Defining Scopes For Your API
 Scopes will be included in the access token but there are no rules and little guidance.
 
-Keep in mind, scopes are just a string. It's up to the API’s to know which scopes are required by each of its methods, and enforce the scopes.
+Keep in mind, scopes are just a string. It's up to the API to know which scopes are required by each of its methods, and enforce the scopes.
 
 Scopes can be defined in format as, but are not limited to:
 - upload
@@ -344,7 +344,7 @@ Scopes allow users to grant permissions for specific access in an easy to unders
 
 ## The End
 
-Thanks for reading! I hope you found these notes helpful and to learn more, take Aaron Parecki’s Udemy's course: “The Nuts and Bolts of OAuth 2.0” [Course Link](https://www.udemy.com/course/oauth-2-simplified/).
+Thanks for reading! I hope you found these notes helpful and to learn more, take Aaron Parecki’s Udemy's course, “The Nuts and Bolts of OAuth 2.0.” [Course Link](https://www.udemy.com/course/oauth-2-simplified/). (Consider adding a recap of what was covered)
 
 #### Additional OAuth Resources
 - [Interactive walkthrough of different OAuth flows](https://www.oauth.com/playground/)
