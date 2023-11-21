@@ -6,5 +6,13 @@
     "description": "The overview for Aaron Parecki’s Udemy's course: “The Nuts and Bolts of OAuth 2.0”. These notes cover everything from what is OAuth, to different authentication flows, token types, and many more OAuth topics.",
     "thumbnailUrl": "https://i.ibb.co/dg98qqf/oauth-image.jpg",
     "createdOn": "2023-11-18T23:03:41.000Z"
+  },
+  {
+    "path": "first-mock-consulting-pragmint.md",
+    "slug": "first-mock-consulting-pragmint",
+    "title": "First Mock Consulting Meeting At Pragmint",
+    "description": "A reflection of my first mock consulting engagement during my Pragmint apprenticeship where I meet the client and discussed details for his upcoming tic tac toe tournament.",
+    "thumbnailUrl": "https://i.ibb.co/wg1Cc35/first-consult-pragmint.jpg",
+    "createdOn": "2021-09-08T23:03:41.000Z"
   }
 ]
