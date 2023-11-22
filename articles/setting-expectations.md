@@ -1,0 +1,24 @@
+Well, the last meeting with Tic Tac Toe Industries did not go as well as I would have hoped. The meeting was focused on a Speed Tic Tac Toe for the upcoming tournament. I (barely) completed all the tickets on the trello board but expected the client to be happy with the game. However, there was a detail that was not really discussed and the client was not happy about my decisions. Plus, the tournament was in less than 24 hours.
+
+Speed Tic Tac Toe has a countdown clock for both the X and O players. When it’s a players turn, the count down clock begins and doesn’t stop until that player makes a move. Then, the next players countdown clock begins until they make a move, and so forth until a player gets a winning combination or a players clock hits 0. Prior to the game start, a player can change how much time both players start with. However, in the version of the game I demo’d to the client, a user could only set the countdown clock as high as 99 seconds and the players remaining time cards displayed time in the following format — 00:00 or, “seconds : hundredths of seconds”.
+
+The problem the client had with the version of the game I showed him is that 99 seconds could be too short, and then what. The client didn’t know an appropriate starting time for the players and wanted to experiment with different times prior to the tournament. The 99 second cap could have a significantly negative impact on the tournament and my clients reputation. Also, the client reported, the 00:00 seemed like it was “minutes : seconds” not “seconds : hundredths of seconds”. But these details were never discussed. In other words, I didn’t set expectations around this part of the game. Needless to say, the client was upset.
+
+This theme of setting expectations is related to my last blog, handling uncertainty. It’s crucial to not allow uncertainty to turn into assumptions. Doing so can lead down a path of unaligned expectations. Instead, questions need to be brought to the clients attention as early as possible, so expectations are set as early as possible.
+
+So far, my biggest takeaways with this mock consulting meeting experience is the following guidelines on what a successful consulting meeting might look like, where everyone is super happy and work is easy. Im sure there is much room for improvement:
+
+1. 1st Meeting Preparation: Do homework on what ever information there is on the upcoming project. Think about the project and the business needs. Think about the domain. Think about where the project is and where it could go. Document questions that need to be answered, anything that is missed can catch up in a negative way.
+
+2. 1st Client Meeting: Ask questions about the business and domain first. Try to learn about the whys? What is try to be accomplished. How do they define success for the project? Then, what are the outer details: servers, event info, capacity needs, etc? Then go into to the fun project specifics. Follow it all up with process and start setting expectations: describe the scrum board and progress tracking and that you’d like to meet frequently to show demos for continuous feedback. Don’t commit to any deadlines because how do you know without thinking first. Also, lock in the second meeting to go over estimates and project details.
+
+3. 2nd Meeting Preparation: Put the information together. Draw up glossary charts, UI diagrams, any other visuals to really embody and define the work that you will do on the project. Imagine the system you are about to build. You should develop more questions for the client but there needs to be a foundation understanding about the boundaries of the project. Put together time estimates, both pessimistic and optimistic, for all the work. Estimate priorities, what are musts and what are nice to haves. What are the other facets of the projects and areas of potential miss understandings.
+
+4. 2nd Client meeting: Share the estimates and establish priority of work. Ask more questions. Go over all the preparation documents. Give them a good idea on what they can expect by the end of the project. Meet more if needed but then the coding can start
+
+5. Continuation: Let the client know to watch the scrum board for real time updates. Meet often for continued feedback. If there is a detail that is missed, be sure to ask about it sooner rather than later. If you sense any misunderstanding or misalignment in expectations, stop immediately and address the topic with alternative solutions or more questions. Also think about work after this project. Discuss product enhancements or overall direction with the client. Where do they see the project going? What goals do they want to fulfill? Build that relationship.
+Deliver
+
+P.S. I was able to make the time input and player card changes requested from the client in time for the tournament.
+
+Based on my experiences from my apprenticeship at Pragmint. https://pragmint.com/
