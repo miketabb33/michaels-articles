@@ -14,5 +14,13 @@
     "description": "A reflection of my first mock consulting engagement during my Pragmint apprenticeship where I meet the client and discussed details for his upcoming tic tac toe tournament.",
     "thumbnailUrl": "https://i.ibb.co/wg1Cc35/first-consult-pragmint.jpg",
     "createdOn": "2021-09-08T23:03:41.000Z"
+  },
+  {
+    "path": "handling-uncertainty.md",
+    "slug": "handling-uncertainty",
+    "title": "Handling Uncertainty",
+    "description": "Uncertainty is a prevalent aspect of software delivery. Learning to navigate uncertainty is a critical part of being a reliable software craftsmen. This blog focuses on my apprenticeship's tic tac toe tournament project at Pragmint.",
+    "thumbnailUrl": "https://i.ibb.co/Jj9hxyB/handling-uncertainty.jpg",
+    "createdOn": "2021-09-20T23:03:41.000Z"
   }
 ]
