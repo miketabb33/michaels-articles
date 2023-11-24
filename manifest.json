@@ -38,5 +38,13 @@
     "description": "Incremental refactoring is taking small bit size changes and verifying each change along the the way. This is a story of a time during my Pragmint apprenticeship where I did not make incremental changes.",
     "thumbnailUrl": "https://i.ibb.co/PGYygHy/incremental-refactoring.jpg",
     "createdOn": "2021-09-22T23:04:41.000Z"
+  },
+  {
+    "path": "gilded-rose.md",
+    "slug": "gilded-rose",
+    "title": "The Gilded Rose: My Experience",
+    "description": "A recount of my time completing Emily Bache’s rendition of Terry Hughes' Gilded Rose Refactoring Kata. The article briefly describes and goes through a potential solution for the video game inspired kata.",
+    "thumbnailUrl": "https://i.ibb.co/Wsn8FDT/gilded-rose.jpg",
+    "createdOn": "2021-10-07T23:04:41.000Z"
   }
 ]
