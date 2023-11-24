@@ -4,7 +4,7 @@
     "slug": "oauth-nuts-and-bolts",
     "title": "Notes from “The Nuts and Bolts of OAuth 2.0”",
     "description": "The overview for Aaron Parecki’s Udemy's course: “The Nuts and Bolts of OAuth 2.0”. These notes cover everything from what is OAuth, to different authentication flows, token types, and many more OAuth topics.",
-    "thumbnailUrl": "https://i.ibb.co/dg98qqf/oauth-image.jpg",
+    "thumbnailUrl": "https://i.ibb.co/rMh2Rp1/oauth-image.jpg",
     "createdOn": "2023-11-18T23:03:41.000Z"
   },
   {
@@ -46,5 +46,13 @@
     "description": "A recount of my time completing Emily Bache’s rendition of Terry Hughes' Gilded Rose Refactoring Kata. The article briefly describes and goes through a potential solution for the video game inspired kata.",
     "thumbnailUrl": "https://i.ibb.co/Wsn8FDT/gilded-rose.jpg",
     "createdOn": "2021-10-07T23:04:41.000Z"
+  },
+  {
+    "path": "pragmint-css-learnings.md",
+    "slug": "pragmint-css-learnings",
+    "title": "My CSS Learnings During Pragmint Apprenticeship",
+    "description": "Trial and error only gets you so far. Sometimes the fastest path forward is take a step back and hit the books. Here are my Pragmint apprenticeship experiences with having to slow down and skill up my CSS skills.",
+    "thumbnailUrl": "https://i.ibb.co/rcBttFk/pragmint-css-learnings.jpg",
+    "createdOn": "2021-11-09T23:04:41.000Z"
   }
 ]
