@@ -1,17 +1,19 @@
-Notes from “Async Code Reviews Are Killing Your Company’s Throughput”
 Dragan Stepanović - NDC Copenhagen 2022 - link to talk
 
+![pr-based-async-code-review](https://raw.githubusercontent.com/miketabb33/michaels-articles/master/img/async-code-reviews-killing-throughput/pr-based-async-code-review.png)
+
 Above is a diagram of a typical PR-based async code review.
-PRs promote context switching and feedback lag.
-It’s not uncommon for most of the lead time for ticket 1 is spent in waiting for review.
+- PR's promote context switching and feedback lag.
+- It’s not uncommon for most of a single tickets lead time to be spent in waiting for review.
 
 The next parts cover aspects of async code reviews and explores how teams can achieve both throughput and stability.
-Engagement
-Systemic effects of delayed and ‘choked’ feedback: The inherent delay’s of PR’s cause slow feedback, which kills engagement. For example, A phone call with delays ends up killing the engagement.
-High latency, low throughput feedback: Written communication is more expensive than verbal communication. Written communication takes longer to write, and it is inherently delayed. Verbal timely feedback is higher quality
-Bigger PRs (more lines of code - LoC) lead to less engagement per line of code (engagement being measured in comments).
-A lack of engagement and feedback leads to lower quality code. (More feedback does not equal higher quality code, but more ‘quality feedback’ does equal higher quality code.)
-Anecdote: 10 lines of code - 10 issues. 500 lines of code - lgtm.
+
+## Engagement
+- **Systemic effects of delayed and ‘choked’ feedback:** The inherent delay’s of PR’s cause slow feedback, which kills engagement. For example, A phone call with delays ends up killing the engagement.
+- **High latency, low throughput feedback:** Written communication is more expensive than verbal communication. Written communication takes longer to write, and it is inherently delayed. Verbal timely feedback is higher quality
+- Bigger PRs (more lines of code - LoC) lead to less engagement per line of code (engagement being measured in comments).
+- A lack of engagement and feedback leads to lower quality code. (More feedback does not equal higher quality code, but more ‘quality feedback’ does equal higher quality code.)
+- **Anecdote:** 10 lines of code - 10 issues. 500 lines of code - lgtm.
 
 Wait Time and Size
 Software’s number 1 priority is to deliver value to its customers. Any wait time delays value delivery. Not all value is equal, but each change has some impact.
@@ -36,9 +38,11 @@ Many small PRs equate to higher feedback/quality but more team interruptions. Te
 + Higher deployment frequency
 - More team interruptions
 
+![throughput-vs-quality](https://raw.githubusercontent.com/miketabb33/michaels-articles/master/img/async-code-reviews-killing-throughput/throughput-vs-quality.png)
+
 Optimal batch size: The point at which gets the best of throughput and quality. This concept comes with accepting that throughput and quality/stability are at odds with each other.
 
-
+![batch-size](https://raw.githubusercontent.com/miketabb33/michaels-articles/master/img/async-code-reviews-killing-throughput/batch-size-and-cost.png)
 
 The Fool’s Choice: Throughput vs Quality
 Throughput and quality can both be achieved.

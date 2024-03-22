@@ -2,10 +2,11 @@
   {
     "path": "async-code-reviews-killing-throughput.md",
     "slug": "async-code-reviews-killing-throughput",
-    "title": "async-code-reviews-killing-throughput",
+    "title": "Notes from “Async Code Reviews Are Killing Your Company’s Throughput”",
     "description": "async-code-reviews-killing-throughput",
     "thumbnailUrl": "https://i.ibb.co/rMh2Rp1/oauth-image.jpg",
-    "createdOn": "2024-03-22T23:03:41.000Z"
+    "createdOn": "2024-03-22T23:03:41.000Z",
+    "hideInProd": true
   },
   {
     "path": "oauth.md",
