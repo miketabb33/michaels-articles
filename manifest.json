@@ -44,7 +44,7 @@
     "path": "incremental-refactoring.md",
     "slug": "incremental-refactoring",
     "title": "Incremental Refactoring",
-    "description": "Incremental refactoring is taking small bit size changes and verifying each change along the the way. This is a story of a time during my Pragmint apprenticeship where I did not make incremental changes.",
+    "description": "Incremental refactoring is taking small bite size changes and verifying each change along the the way. This is a story of a time during my Pragmint apprenticeship where I did not make incremental changes.",
     "thumbnailUrl": "https://i.ibb.co/PGYygHy/incremental-refactoring.jpg",
     "createdOn": "2021-09-22T23:04:41.000Z"
   },

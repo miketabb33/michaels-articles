@@ -9,7 +9,7 @@ The data source for the articles in [Michael's Website](https://github.com/miket
 
 3. Hide work in progress articles in the production environment by adding the following optional property to the `manifest.json` entry: `hidInProd: true`
 
-example:
+Example:
 ``` json
   {
     "path": "any-path",
