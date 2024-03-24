@@ -3,10 +3,10 @@
     "path": "async-code-reviews-killing-throughput.md",
     "slug": "async-code-reviews-killing-throughput",
     "title": "Notes from “Async Code Reviews Are Killing Your Company’s Throughput”",
-    "description": "async-code-reviews-killing-throughput",
-    "thumbnailUrl": "https://i.ibb.co/rMh2Rp1/oauth-image.jpg",
-    "createdOn": "2024-03-22T23:03:41.000Z",
-    "hideInProd": true
+    "description": "The overview from Dragan Stepanović's NDC Copenhagen 2022 presentation: “Async Code Reviews Are Killing Your Company’s Throughput”. These notes dive into how async code reviews put throughput and quality at odds. Can't we get the best of both worlds?",
+    "thumbnailUrl": "https://raw.githubusercontent.com/miketabb33/michaels-articles/master/img/thumbnails/async-code-reviews.jpg",
+    "createdOn": "2024-03-24T23:03:41.000Z",
+    "hideInProd": false
   },
   {
     "path": "oauth.md",
